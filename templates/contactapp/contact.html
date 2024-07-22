@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Contact Form{% endblock %}
+{% block content %}
+<div class="h-screen m-[10%] sm:m-[20%]">
+  <div class="bg-white justify-center">
+    <div class="p-6">
+      {% include 'contactapp/messages.html' %}
+      <h1 class="font-bold text-2xl mb-6">Contact Us</h1>
+      <form method="POST" id="contact-form" novalidate>
+        {% csrf_token %}
+        <div class="sm:grid grid-cols-2 gap-3">
+          <div>
+            <label for="first_name" class="block text-sm font-medium text-gray-700">First Name <span>*</span></label>
+            <div class="mt-1">
+              <input type="text" name="first_name" id="first_name" required class="peer focus:ring-2 focus:ring-primary shadow-sm focus:border-primary block w-full sm:text-sm border-primary rounded-md p-3 border-2">
+              <p class="mt-2 hidden peer-invalid:block text-pink-600">This field is required.</p>
+            </div>
+          </div>
+
+          <div>
+            <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name <span>*</span></label>
+            <div class="mt-1">
+              <input type="text" name="last_name" id="last_name" required class="peer focus:ring-2 focus:ring-primary shadow-sm focus:border-primary block w-full sm:text-sm border-primary rounded-md p-3 border-2">
+              <p class="mt-2 hidden peer-invalid:block text-pink-600">This field is required.</p>
+            </div>
+          </div>
+
+          <div class="col-span-2">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email <span>*</span></label>
+            <div class="mt-1">
+              <input type="email" name="email" id="email" required class="peer focus:ring-2 focus:ring-primary shadow-sm focus:border-primary block w-full sm:text-sm border-primary rounded-md p-3 border-2">
+              <p class="mt-2 hidden peer-invalid:block text-pink-600">Please provide a valid email.</p>
+            </div>
+          </div>
+
+          <div class="gap-3 col-span-2">
+            <label for="general_enquiry" class="block text-sm font-medium text-gray-700">Query Type <span>*</span></label>
+            <div class="sm:grid sm:grid-cols-2 gap-2">
+              <div class="mt-1 items-center shadow-sm focus:ring-primary focus:border-primary w-full sm:text-sm border-primary rounded-md p-3 border-2">
+                <input type="radio" name="general_enquiry" id="general_enquiry_general" value="general" required class="shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-primary rounded-md p-3 border-2">
+                <label for="general_enquiry_general" class="ml-4">General Enquiry</label>
+              </div>
+
+              <div class="mt-1 items-center shadow-sm focus:ring-primary focus:border-primary w-full sm:text-sm border-primary rounded-md p-3 border-2">
+                <input type="radio" name="general_enquiry" id="general_enquiry_support" value="support" required class="shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-primary rounded-md p-3 border-2">
+                <label for="general_enquiry_support" class="ml-4">Support Enquiry</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-2">
+            <label for="message" class="block text-sm font-medium text-gray-700">Message <span>*</span></label>
+            <div class="mt-1">
+              <textarea name="message" id="message" rows="7" required class="peer focus:ring-2 focus:ring-primary shadow-sm focus:border-primary block w-full sm:text-sm border-primary rounded-md p-3 border-2"></textarea>
+              <p class="mt-2 hidden peer-invalid:block text-pink-600">This field is required.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 col-span-2 mt-4 mb-4">
+            <input type="checkbox" name="check" id="check" required class="peer shadow-sm focus:ring-primary focus:border-primary sm:text-sm border-primary rounded-md p-3 border-2">
+            <label for="check" class="block text-sm font-medium text-gray-700">I consent to be contacted by the team <span>*</span></label>
+            <p class="mt-2 hidden peer-invalid:block text-pink-600">You must consent to be contacted.</p>
+          </div>
+
+          <div class="col-span-2">
+            <div class="mt-1">
+              <input type="submit" value="Submit" class="bg-green-700 cursor-pointer text-white shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-primary rounded-md p-3 border-2">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    const form = event.target;
+    form.classList.add("was-validated");
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      form.querySelectorAll(":invalid")[0].focus();
+    }
+  });
+</script>
+{% endblock %}
